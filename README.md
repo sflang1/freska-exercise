@@ -47,6 +47,12 @@ The production setup is done through Docker. I added a docker-compose file in th
 
 1. Copy the .env.example file to .env in the root folder of the project and change in .env the POSTGRES_PASSWORD to the value you want to assign to your Postgres database in the Docker container. 
 2. Copy the .env.example.production to .env.production in the web_service folder. Please, fill only the FIXER_IO_API_KEY and check that the database password is the same as the provided in the .env file that's found in the root folder of the project.
+3. Because the master key that encrypted the credentials.yml.enc was not passed to Github, you must run this to set up a new credentials.yml.enc in the web_service folder, run: 
+```
+rm config/credentials.yml.enc
+EDITOR=nano rails credentials:edit
+```
+
 3. Copy the .env.example.production file into the .env file in the report_job_service folder. Fill only the FIXER_IO_API_KEY and all the fields related to AWS, as we are going to upload the documents created to it. Check that the database name is the same than in the web_service folder and that the database password is the same than in the .env file in the root project.
 4. Run in the root folder of the project
 ```
