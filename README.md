@@ -62,7 +62,7 @@ docker-compose build && docker-compose up
 6. For running the production version of the report job, you should do this:
 ```
 docker exec -it <-name or ID of the container -> bash
-ENV=production ruby main.py --currencies "USD,JPY" --formats "csv, json"
+ENV=production ruby main.rb --currencies "USD,JPY" --formats "csv, json"
 ```
 
 ## API specification
