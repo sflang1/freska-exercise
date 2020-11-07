@@ -9,7 +9,7 @@ class Api::CurrenciesController < ApplicationController
     
     saved_exchange_rates = ExchangeRate.where(date: start_date..end_date)
                                         .where('("exchange_rates"."from" = ? AND "exchange_rates"."to" = ?) OR ("exchange_rates"."from" = ? AND "exchange_rates"."to" = ?)', 
--                                       params[:base_currency], params[:to], params[:to], params[:base_currency])
+                                        params[:base_currency], params[:to], params[:to], params[:base_currency])
                                         .order(:date)
     records_holder = saved_exchange_rates.to_a
     unfound_records = (start_date..end_date).filter { |date| !saved_exchange_rates.where(date: date).exists? }

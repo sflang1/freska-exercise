@@ -1,0 +1,28 @@
+version: "3.8"
+
+services: 
+  report:
+    build: report_job_service
+    command: sleep 3000000
+    depends_on:
+      - db
+  web:
+    build: web_service
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: production
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment: 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+volumes:
+  db-data:
+    driver: local
