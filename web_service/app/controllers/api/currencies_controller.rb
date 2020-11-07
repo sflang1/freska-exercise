@@ -9,7 +9,7 @@ class Api::CurrenciesController < ApplicationController
     
     saved_exchange_rates = ExchangeRate.where(date: start_date..end_date)
                                         .where('("exchange_rates"."from" = ? AND "exchange_rates"."to" = ?) OR ("exchange_rates"."from" = ? AND "exchange_rates"."to" = ?)', 
-                                        params[:base_currency], params[:to], params[:to], params[:base_currency])
+-                                       params[:base_currency], params[:to], params[:to], params[:base_currency])
                                         .order(:date)
     records_holder = saved_exchange_rates.to_a
     unfound_records = (start_date..end_date).filter { |date| !saved_exchange_rates.where(date: date).exists? }
@@ -26,7 +26,7 @@ class Api::CurrenciesController < ApplicationController
 
   private
   def validate_params
-    present_params = params[:base_currency].present? && params[:to].present? && params[:start_date].present? && params[:end_date].present? 
+    present_params = params[:base_currency].present? && params[:to].present? && params[:start_date].present? && params[:end_date].present?
     return head 400, error: 'One or multiple required params are missing' unless present_params
     date_diff = params[:end_date].to_date - params[:start_date].to_date
     return head 400, error: 'One or multiple required params are missing' if date_diff < 0
