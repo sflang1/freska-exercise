@@ -36,7 +36,6 @@ RSpec.describe 'convert currency', type: :request do
       { date: "2020-02-03", from: "EUR", to: "USD", rate: 1.23123 },
       { date: "2020-02-04", from: "EUR", to: "USD", rate: 1.24 }
     ])
-    # configure the service for failing if it is called. If it is not called, (as the test says, this should not fail)
     expect(FixerApiQueryService).not_to receive(:call)
     
     get '/api/currencies/convert/EUR?start_date=2020-02-03&end_date=2020-02-04&to=USD'
