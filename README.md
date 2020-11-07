@@ -11,7 +11,7 @@ You will need a postgres database server running in your machine. For setting it
 ### Web microservice
 
 1. Copy the .env.example.development to .env.development in the web_service folder
-2. Replace your connection credentials for you to have a connection to the database.
+2. Replace your connection credentials in the .env.development file for you to have a connection to the database.
 3. In .env.development, replace the FIXER_IO_API_KEY to your API key.
 4. Run the commands: 
 ```
@@ -43,16 +43,17 @@ The generated files will be saved within the tmp folder.
 
 
 ## Production
-The production setup is done through Docker. I added a docker-compose file in the root of the project. It has a .env file, which only includes the POSTGRES_PASSWORD you want to assign to your Postgres database in the Docker container. 
+The production setup is done through Docker. I added a docker-compose file in the root of the project. 
 
-1. Copy the .env.example.production to .env.production in the web_service folder. Please, fill only the FIXER_IO_API_KEY and check that the database password is the same as the provided in the .env file that's found in the root folder of the project.
-2. Copy the .env.example.production file into the .env file in the report_job_service folder. Fill only the FIXER_IO_API_KEY and all the fields related to AWS, as we are going to upload the documents created to it. Check that the database name is the same than in the web_service folder and that the database password is the same than in the .env file in the root project.
-3. Run in the root folder of the project
+1. Copy the .env.example file to .env in the root folder of the project and change in .env the POSTGRES_PASSWORD to the value you want to assign to your Postgres database in the Docker container. 
+2. Copy the .env.example.production to .env.production in the web_service folder. Please, fill only the FIXER_IO_API_KEY and check that the database password is the same as the provided in the .env file that's found in the root folder of the project.
+3. Copy the .env.example.production file into the .env file in the report_job_service folder. Fill only the FIXER_IO_API_KEY and all the fields related to AWS, as we are going to upload the documents created to it. Check that the database name is the same than in the web_service folder and that the database password is the same than in the .env file in the root project.
+4. Run in the root folder of the project
 ```
 docker-compose build && docker-compose up
 ```
-4. When it has finished, you will be able to send your requests to the web service in the location http://localhost:3000 
-5. For running the production version of the report job, you should do this:
+5. When it has finished, you will be able to send your requests to the web service in the location http://localhost:3000 
+6. For running the production version of the report job, you should do this:
 ```
 docker exec -it <-name or ID of the container -> bash
 ENV=production ruby main.py --currencies "USD,JPY" --formats "csv, json"
